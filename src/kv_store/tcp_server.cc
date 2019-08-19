@@ -162,11 +162,8 @@ int TcpServer::SetKV(Packet *packet)
     store_->Set(key_buf_, value_buf_);
 
 #ifdef NEED_ACK
-    if (write_opt_count_ % NEED_ACK == 0)
-    {
-        // pair mode don't consider to response
-        nn_send(fd_, packet, sizeof(struct packet_header), 0);
-    }
+    // pair mode don't consider to response
+    nn_send(fd_, packet, sizeof(struct packet_header), 0);
 #endif
 
     return 1;
