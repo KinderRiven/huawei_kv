@@ -223,12 +223,12 @@ int DataAgent::Append(KVString &key, KVString &val)
     }
 
 #ifdef NEED_ACK
-
     int time2 = 50;
     nn_setsockopt(fd_, 0, NN_RCVTIMEO, &time2, sizeof(time2));
 
     char *ack_ = NULL;
     size = nn_recv(fd_, &ack_, NN_MSG, 0);
+
     if (size != sizeof(struct packet_header))
     {
         return 0;

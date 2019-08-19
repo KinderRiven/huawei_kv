@@ -95,9 +95,9 @@ int KVService::Set(KVString &key, KVString &val)
     mutex_.unlock();
 
     agent_mutex[agent_id].lock();
-    agent[agent_id]->Append(key, val);
+    int ret = agent[agent_id]->Append(key, val);
     agent_mutex[agent_id].unlock();
-    return 0;
+    return ret;
 }
 
 /*
@@ -136,7 +136,7 @@ int KVService::Get(KVString &key, KVString &val)
     mutex_.unlock();
 
     agent_mutex[agent_id].lock();
-    agent[agent_id]->Get(key, val);
+    int ret = agent[agent_id]->Get(key, val);
     agent_mutex[agent_id].unlock();
-    return 0;
+    return ret;
 }
