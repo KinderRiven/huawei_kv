@@ -14,6 +14,6 @@
 #define TOTAL_NUM_EXTRA_BUCKET ((1000000) / (NUM_STORE))
 
 // #define DEBUG_PRINT
-#define NEED_ACK
+#define NEED_ACK (5)
 
 #endif
