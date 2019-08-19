@@ -65,8 +65,10 @@ int DataAgent::Connect(const char url[])
         return -1;
     }
 
-    nn_setsockopt(fd, 0, 5000, &timeo, sizeof(timeo));
-    nn_setsockopt(fd, 0, 50, &timeo, sizeof(timeo));
+    int time1 = 500;
+    int time2 = 50;
+    nn_setsockopt(fd, 0, NN_SNDTIMEO, &time1, sizeof(timeo));
+    nn_setsockopt(fd, 0, NN_RCVTIMEO, &time2, sizeof(timeo));
 
     if (nn_connect(fd, url) < 0)
     {
