@@ -76,9 +76,8 @@ int TcpServer::Connect(const char url[])
         return -1;
     }
 
-    int timeo = 1000;
-    assert(nn_setsockopt(fd, 0, NN_SNDTIMEO, &timeo, sizeof(timeo) >= 0));
-    assert(nn_setsockopt(fd, 0, NN_RCVTIMEO, &timeo, sizeof(timeo) >= 0));
+    assert(nn_setsockopt(fd, 0, 5000, &timeo, sizeof(timeo) >= 0));
+    assert(nn_setsockopt(fd, 0, 5000, &timeo, sizeof(timeo) >= 0));
 
     if (nn_bind(fd, url) < 0)
     {
@@ -162,10 +161,7 @@ int TcpServer::SetKV(Packet *packet)
 
 #ifdef NEED_ACK
     // pair mode don't consider to response
-    if (write_opt_count_ % NEED_ACK == 0)
-    {
-        nn_send(fd_, packet, sizeof(struct packet_header), 0);
-    }
+    nn_send(fd_, packet, sizeof(struct packet_header), 0);
 #endif
 
     return 1;
