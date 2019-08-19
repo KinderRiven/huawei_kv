@@ -76,8 +76,8 @@ int TcpServer::Connect(const char url[])
         return -1;
     }
 
-    int time1 = 500;
-    int time2 = 50;
+    int time1 = 5000;
+    int time2 = 5000;
     assert(nn_setsockopt(fd, 0, NN_SNDTIMEO, &timeo, sizeof(timeo) >= 0));
     assert(nn_setsockopt(fd, 0, NN_RCVTIMEO, &timeo, sizeof(timeo) >= 0));
 
