@@ -66,7 +66,7 @@ int DataAgent::Connect(const char url[])
     }
 
     int time1 = 500;
-    int time2 = 50;
+    int time2 = 500;
     nn_setsockopt(fd, 0, NN_SNDTIMEO, &time1, sizeof(time1));
     nn_setsockopt(fd, 0, NN_RCVTIMEO, &time2, sizeof(time2));
 
