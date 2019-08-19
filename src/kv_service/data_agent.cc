@@ -65,8 +65,8 @@ int DataAgent::Connect(const char url[])
         return -1;
     }
 
-    int time1 = 500;
-    int time2 = 500;
+    int time1 = 1000;
+    int time2 = 1000;
     nn_setsockopt(fd, 0, NN_SNDTIMEO, &time1, sizeof(time1));
     nn_setsockopt(fd, 0, NN_RCVTIMEO, &time2, sizeof(time2));
 
@@ -225,15 +225,18 @@ int DataAgent::Append(KVString &key, KVString &val)
     }
 
 #ifdef NEED_ACK
-    char *ack_ = NULL;
-    size = nn_recv(fd_, &ack_, NN_MSG, 0);
-    if (size != sizeof(struct packet_header))
+    if (write_opt_count_ % NEED_ACK == 0)
     {
-        return 0;
-    }
-    if (ack_ != NULL)
-    {
-        nn_freemsg(ack_);
+        char *ack_ = NULL;
+        size = nn_recv(fd_, &ack_, NN_MSG, 0);
+        if (size != sizeof(struct packet_header))
+        {
+            return 0;
+        }
+        if (ack_ != NULL)
+        {
+            nn_freemsg(ack_);
+        }
     }
 #endif
 
