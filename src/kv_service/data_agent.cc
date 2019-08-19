@@ -65,8 +65,8 @@ int DataAgent::Connect(const char url[])
         return -1;
     }
 
-    int time1 = 5000;
-    nn_setsockopt(fd, 0, NN_SNDTIMEO, &time1, sizeof(time1));
+    int time_ = 5000;
+    nn_setsockopt(fd, 0, NN_SNDTIMEO, &time_, sizeof(time_));
 
     if (nn_connect(fd, url) < 0)
     {
@@ -223,8 +223,8 @@ int DataAgent::Append(KVString &key, KVString &val)
     }
 
 #ifdef NEED_ACK
-    int time2 = 50;
-    nn_setsockopt(fd_, 0, NN_RCVTIMEO, &time2, sizeof(time2));
+    int time_ = 50;
+    nn_setsockopt(fd_, 0, NN_RCVTIMEO, &time_, sizeof(time_));
 
     char *ack_ = NULL;
     size = nn_recv(fd_, &ack_, NN_MSG, 0);
@@ -300,8 +300,8 @@ int DataAgent::Get(KVString &key, KVString &val)
         }
         else
         {
-            int time2 = 1000;
-            nn_setsockopt(fd_, 0, NN_RCVTIMEO, &time2, sizeof(time2));
+            int time_ = 5000;
+            nn_setsockopt(fd_, 0, NN_RCVTIMEO, &time_, sizeof(time_));
 
             uint64_t cache_offset = CACHE_ALIGN(offset);
             uint8_t c_ = hot_[cache_offset];
