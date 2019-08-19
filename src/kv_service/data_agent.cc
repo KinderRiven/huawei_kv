@@ -225,6 +225,10 @@ int DataAgent::Append(KVString &key, KVString &val)
 #ifdef NEED_ACK
     char *ack_ = NULL;
     size = nn_recv(fd_, &ack_, NN_MSG, 0);
+    if (size != sizeof(struct packet_header))
+    {
+        return 0;
+    }
     if (ack_ != NULL)
     {
         nn_freemsg(ack_);
